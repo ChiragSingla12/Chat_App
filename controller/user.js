@@ -17,7 +17,7 @@ const signup = async (req, res, next) => {
         bcrypt.hash(password, saltrounds, async (err, hash) => {
             const user = await User.findAll({ where: { email } });
             if (user.length > 0) {
-                res.status(400).send({ 'message': 'User already exists' });
+                res.status(409).send({ 'message': 'User already exists, Please Login' });
             } else {
                 const data = await User.create(
                     {
@@ -29,7 +29,7 @@ const signup = async (req, res, next) => {
     }
     catch (err) {
         console.log('err', err);
-        res.status(400).send({ 'error': err, 'message': 'Something went wrong' });
+        res.status(500).send({ 'error': err, 'message': 'Something went wrong' });
     }
 };
 
