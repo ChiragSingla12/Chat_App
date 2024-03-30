@@ -1,26 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign-Up Page</title>
+    <link rel="stylesheet" href="../public/css/login.css">
 </head>
-<body>
-    <div>
-        <form id="signup-form">
-            <lable for="name">Enter name</lable>
-            <input type="text" name="name" id="name"required/>
-            <lable for="email">Enter email</lable>
-            <input type="email" name="email" id="email"required/>
-            <lable for="phonenumber">Enter phone number</lable>
-            <input type="phonenumber" name="phonenumber" id="phonenumber"required/>
-            <lable for="password">Enter Password</lable>
-            <input type="password" name="password" id="password"required/>
-            <button type="submit" id="signupbtn">Signup</button>
-        </form>
+
+<body class="body">
+    <div class="alert alert-primary notif" role="alert">
+        Random text
     </div>
+
+    <form id="signup-form" class="form">
+        <center>
+            <h2 class="heading">Chat App</h2>
+        </center>
+        <div>
+            <lable for="name">Enter name</lable>
+            <input type="text" name="name" id="name" required />
+        </div>
+        <div>
+            <lable for="email">Enter email</lable>
+            <input type="email" name="email" id="email" required />
+        </div>
+        <div>
+            <lable for="phonenumber">Enter phone number</lable>
+            <input type="phonenumber" name="phonenumber" id="phonenumber" required />
+        </div>
+        <div>
+            <lable for="password">Enter Password</lable>
+            <input type="password" name="password" id="password" required />
+        </div>
+
+        <center>
+            <button type="submit" id="signupbtn">Signup</button>
+        </center>
+        <a href="../views/login.html">Existing user - login</a>
+    </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
     <script src="/public/js/signup.js"></script>
 </body>
+
 </html>
