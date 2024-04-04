@@ -16,6 +16,7 @@ const sequelize = require('./util/database');
 
 const userRoutes = require('./router/user');
 const pageRoutes = require('./router/page');
+const groupRoutes = require('./router/chat');
 
 app.use(cors({
     origin: '*',
@@ -27,6 +28,7 @@ app.use(bodyParser.json({extended: false}));
 
 app.use(pageRoutes);
 app.use('/user', userRoutes);
+app.use('/group', groupRoutes);
 
 app.use((req, res) =>{
     res.sendFile(path.join(__dirname,`${req.url}`))
