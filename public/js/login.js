@@ -1,6 +1,5 @@
 const formSubmit = document.getElementById('login-form')
 formSubmit.addEventListener('submit', login)
-const notif = document.getElementsByClassName('notif')[0];
 
 async function login(e) {
     e.preventDefault();
@@ -11,13 +10,15 @@ async function login(e) {
     };
 
     try {
-        const res = await axios.post('http://localhost:3000/user/login', loginDetails);
+        const response = await axios.post('http://localhost:3000/user/login', loginDetails);
         if (response.status === 200) {
             alert(response.data.message);
             console.log(response.data);
-            localStorage.setItem('token', response.data.token)
+            localStorage.setItem('token', response.data.token);
+            window.location.href = "/views/chat.html";
         }
     } catch (err) {
-        console.log('error', err)
+        console.log(JSON.stringify(err));
+        document.body.innerHTML += `<div style="color:red;">${err.message} <div>`;
     }
 }
