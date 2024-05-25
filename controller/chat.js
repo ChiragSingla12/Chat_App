@@ -1,17 +1,23 @@
-const User = require('../model/users');
-const Chat = require('../model/chats')
+const Chat = require('../model/chats');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { Op } = require('sequelize');
 
 const getChats = async (req, res, next) => {
     try {
-        const message = await Chat.findAll()
-        //console.log(message);
+        let lastId = req.query.id;
+        console.log('req. query >>>>>>>>>', req.query.id);
+        if (lastId === undefined) {
+            lastId = -1;
+        }
+        console.log('lastid>>>>>>>>>>>', lastId);
+        const message = await Chat.findAll({ where: { id: { [Op.gt]: lastId } }, attributes: ['id', 'message', 'username'] })
+        // console.log(message);
         res.status(201).json(message)
     }
-    catch(err) {
+    catch (err) {
         console.log(err);
-        res.status(500).json({ error:  "Internal server error." });
+        res.status(500).json({ error: "Internal server error." });
     }
 }
 
