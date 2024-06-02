@@ -16,7 +16,7 @@ async function signup(e) {
         console.log(response);
         alert("Successfuly signed up");
         formSubmit.reset();
-        window.location.href = "./login.html";
+        window.location.href = "./views/login.html";
 
     }
     catch (err) {

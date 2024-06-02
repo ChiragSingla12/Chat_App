@@ -2,6 +2,7 @@ const User = require('../model/users');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Chat = require('../model/chats')
+const { Op } = require('sequelize');
 
 function isStringInvalid(string) {
     return string === undefined || string.length === 0;
@@ -81,8 +82,54 @@ const saveChat = async (req, res, next) => {
     }
 }
 
+const getUsers = async (req, res, next) => {
+    try {
+        const allUser = await User.findAll({ where: { id: { [Op.ne]: req.user.id } } })
+        res.status(200).json(allUser);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ "message": "Something went wrong!", "Error": err });
+    }
+}
+
+const getGroups = async (req, res, next) => {
+    try {
+        const groups = await req.user.getGroups();
+        res.status(200).json({ "message": "success", groups });
+    }
+    catch (err) {
+        res.status(500).json({ "message": "Something went wrong!", "Error": err });
+    }
+}
+
+const getChats = async (req, res, next) => {
+    try{
+
+        const totalChats = await Chat.count();
+        console.log("totalchats is: ", totalChats);
+        let lastId = req.query.id;
+        // console.log(req.query.id);
+        if(lastId === undefined){
+            lastId = -1;
+        }
+        console.log(lastId);
+        const message = await Chat.findAll({where: { id: { [Op.gt]: lastId }}, attributes : ['id', 'message', 'username']})
+        console.log("mess ", message);
+        res.status(201).json(message)
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({ error: "Internal server error." });
+    }
+}
+
+
 module.exports = {
     signup,
-    login,
-    saveChat
+    login, 
+    saveChat,
+    getUsers,
+    getGroups,
+    getChats
 };
