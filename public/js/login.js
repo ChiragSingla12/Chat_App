@@ -11,6 +11,7 @@ async function login(e) {
 
     try {
         const response = await axios.post('http://localhost:3000/user/login', loginDetails);
+        // console.log(response.data);
         if (response.status === 200) {
             alert(response.data.message);
             console.log(response.data);
@@ -18,7 +19,7 @@ async function login(e) {
             window.location.href = "/views/chat.html";
         }
     } catch (err) {
-        console.log(JSON.stringify(err));
+        console.log('json error is ', JSON.stringify(err));
         document.body.innerHTML += `<div style="color:red;">${err.message} <div>`;
     }
 }

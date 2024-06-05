@@ -16,4 +16,14 @@ router.post('/newMsg', middleware.authenticate, chatController.sendMsg);
 
 router.get('/allGroup', middleware.authenticate, chatController.getGrps)
 
-module.exports = router;
+router.get('/allUser', chatController.grpDetails)
+
+router.get('/reqGroup/:id', chatController.grpReq)
+
+router.get('/:id', middleware.authenticate, chatController.addAdmin)
+
+router.get('/findGroupId', middleware.authenticate, chatController.addParticipants)
+
+router.post('/member', middleware.authenticate, chatController.addParticipants);
+
+module.exports = router
